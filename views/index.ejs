@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>CRUD version 5</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+    
+            body {
+    background-image: url("https://www.shutterstock.com/image-photo/human-resources-pool-customer-care-260nw-278477054.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #cccccc;
+    height: 100vh;
+  }
+    
+    </style>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+</head>
+
+<body>
+    <form action="/emp/reg" method="POST"><button type="submit">Logout</button></form>
+    
+    <center>
+        <h2 style="color:blue ;"> Enter Employee Details </h2>
+        <div id="container" style=" padding: auto;">
+            <form action="/emp" method="POST">
+                <b>Name:</b><input type="text " id="names" placeholder="Enter name" name="Name" value="<%= Name %>"
+                   ><br><br>
+                <b> Job:</b><input type="text" id="job" placeholder="Enter job" name="Job" value="<%= Job %>"><br><br>
+                <b>Salary:</b><input type="number" id="salary" placeholder="Enter salary" name="Salary" value="<%= Salary %>"
+                    ><br><br>
+                <!-- <input id="id" type="hidden" class="form-control txt" name="id"> -->
+                <button class="button" id="addbtn" type="submit">Add</button>
+                <button class="button" id="savebtn" type="submit" formaction="/emp/save/:id" method="POST">Save</button>
+                <!-- <button class="button" id="searchData" type="search">Search</button>
+                <button class="button" id="clear" >clear</button> -->
+
+            </form>
+        </div>
+        <h3>EMPLOYEE DATA </h3>
+        <table class="table-sortable" id="table" border="1" style="margin: 2px;">
+            <tr>
+                <th data-sort-type="text"><b>Name</b>
+                    <div class="up-arrow" onclick="sort(`names`,`asc`)">
+                    </div>
+                    <div class="down-arrow" onclick="sort(`names`,`desc`)"></div>
+                </th>
+                <th data-sort-type="text"><b>Job</b>
+                    <div class="up-arrow" onclick="sort(`job`,`asc`)">
+                    </div>
+                    <div class="down-arrow" onclick="sort(`job`,`desc`)"></div>
+                </th>
+                <th data-sort-type="numeric"><b>Salary</b>
+                    <div class="up-arrow" onclick="sort(`salary`,`asc`)"></div>
+                    <div class="down-arrow" onclick="sort(`salary`,`desc`)"></div>
+                </th>
+                <th>Actions</th>
+
+            </tr>
+            <tbody id="empDetails"></tbody>
+            <% emp.forEach((item)=> {%>
+                <tr>
+                    <td>
+                        <%=item.Name%>
+                    </td>
+                    <td>
+                        <%=item.Job%>
+                    </td>
+                    <td>
+                        <%=item.Salary%>
+                    </td>
+                    <td>
+                        <form style ='display:inline' action="/emp/delete/<%=item.id %> " method="POST">
+                            <button class='btn btn-sm btn-success btn-delete' style="color: red;" >DELETE</button>
+                        </form>
+                        <form style ='display:inline' action="/emp/<%=item.id %>" method="GET">
+                            <button class='btn btn-sm btn-success btn-edit' type="submit" style="color: green;">EDIT</button>
+                        </form>
+                    </td>
+                </tr>
+                <%})%>
+        </table>
+        </div>
+    </center>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    crossorigin="anonymous"></script>
+
+</html>
